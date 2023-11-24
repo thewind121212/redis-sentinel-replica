@@ -1,0 +1,76 @@
+version: '3.1'
+
+services:
+  redis-primary:
+    container_name: redis-primary
+    build:
+      context: .
+      dockerfile: ./dockerfile-primary
+    ports:
+      - "6380:6379"
+    networks:
+      - redistestnet
+    command: redis-server /etc/redis/redis.conf
+
+  redis-replica1:
+    container_name: redis-replica1
+    build:
+      context: .
+      dockerfile: ./dockerfile-replica
+    ports:
+      - "6381:6379"
+      - "26381:26379"
+    networks:
+      - redistestnet
+    command: bash -c "/etc/redis/script.sh"   
+
+  redis-replica2:
+    container_name: redis-replica2
+    build:
+      context: .
+      dockerfile: ./dockerfile-replica
+    ports:
+      - "6382:6379"
+      - "26382:26379"
+    networks:
+      - redistestnet
+    command: bash -c "/etc/redis/script.sh"   
+
+  redis-replica3:
+    container_name: redis-replica3
+    build:
+      context: .
+      dockerfile: ./dockerfile-replica
+    ports:
+      - "6383:6379"
+      - "26383:26379"
+    networks:
+      - redistestnet
+    command: bash -c "/etc/redis/script.sh"   
+
+  redis-sentinel4:
+    container_name: redis-sentinel4
+    build:
+      context: .
+      dockerfile: ./dockerfile-replica
+    ports:
+      - "26384:26379"
+    networks:
+      - redistestnet
+    command: redis-server /etc/redis/sentinel.conf --sentinel
+
+  redis-sentinel5:
+    container_name: redis-sentinel5
+    build:
+      context: .
+      dockerfile: ./dockerfile-replica
+    ports:
+      - "26385:26379"
+    networks:
+      - redistestnet
+    command: redis-server /etc/redis/sentinel.conf --sentinel
+
+networks:
+  redistestnet:
+    external: true
+    name: redistestnet

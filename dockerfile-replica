@@ -1,0 +1,9 @@
+FROM redis
+
+WORKDIR /etc/redis
+
+COPY ./replica/redis.conf .
+COPY ./replica/script.sh .
+COPY ./replica/sentinel.conf .
+COPY ./replica/sentinel-users.acl .
+COPY ./users.acl .

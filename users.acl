@@ -1,0 +1,4 @@
+user adminLinh on sanitize-payload #780890b7bfc7a71eae1189bafb3170d708d752fe3541a00f0d8c7ba13d2d94d3 ~* &* +@all
+user default on sanitize-payload #780890b7bfc7a71eae1189bafb3170d708d752fe3541a00f0d8c7ba13d2d94d3 ~* &* +@all
+user replica on sanitize-payload #780890b7bfc7a71eae1189bafb3170d708d752fe3541a00f0d8c7ba13d2d94d3 resetchannels -@all +psync +replconf +ping
+user sentinel on sanitize-payload #561af2579e385d239393e91806dd2c7567cc0d85b238ad4582d568c85f100adc &* -@all +multi +slaveof +ping +exec +subscribe +config|rewrite +role +publish +info +client|setname +client|kill +script|kill
